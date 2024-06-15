@@ -4,6 +4,7 @@ float dot(vec3d a, vec3d b){ return (a.x * b.x + a.y * b.y + a.z * b.z); }
 
 float length(vec3d a) { return sqrt(dot(a, a));}
 
+// рсчет t
 std::vector<float> intersectionRaySphere(vec3d origin, vec3d direction, sphere sp){
     vec3d C = sp.center;
     float r = sp.radius;
@@ -29,9 +30,8 @@ std::vector<float> intersectionRaySphere(vec3d origin, vec3d direction, sphere s
     }
 }
 
-// В будуюем добавить разные виды света
+// расчет интенсивности точки на сфере
 float ComputeLighting(vec3d point, vec3d normal, light* lights){
-    // float intensity = (dot((lights.position / length(lights.position)), normal) + 1) / 2;
     float intensity = 0;
     float lenghts_n = length(normal);
     for (int i = 0; i < 3; i++)
@@ -51,6 +51,7 @@ float ComputeLighting(vec3d point, vec3d normal, light* lights){
     return intensity;
 }
 
+//самый обычные ray tracing
 float traceRayV2(vec3d origin, vec3d direction, float t_min, float t_max, sphere SpS, light* lights)
 {
     float closest_t = 9999999.9f;

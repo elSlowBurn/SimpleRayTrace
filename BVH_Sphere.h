@@ -123,18 +123,7 @@ struct BVH
         if (cir.size() != 1 && cir.size() != 0){
             node->circlesAmmount = cir.size();
             std::vector<Circle> half1 = divideVectorFirstHalf(cir); //деление круггов на первую и вторую половины
-            // std::cout << "half1:" << std::endl;
-            // for (int i = 0; i < half1.size(); i++)
-            // {
-            //     std::cout << half1.at(i).aSphere->radius << std::endl;
-            // }
-            
             std::vector<Circle> half2 = divideVectorSecoondHalf(cir);
-            // std::cout << "half2:" << std::endl;
-            // for (int i = 0; i < half2.size(); i++)
-            // {
-            //     std::cout << half2.at(i).aSphere->radius << std::endl;
-            // }
 
             std::vector<float> boundaries = getMaxMin(half1); //определение границ для первой ветви
             float x = (boundaries.at(0) + boundaries.at(2)) / 2;
@@ -185,7 +174,7 @@ struct BVH
         }
         // length(A->center)
     }
-   
+
     //поиск пересечений
     bool overleap(AABB* A, AABB* B){
         if ((A->borderXMin >= B->borderXMax ||
@@ -195,13 +184,11 @@ struct BVH
             return false;
         return true;
     }
-    
+
     void overleapCheck(Node* nodeA, Node* nodeB){
         if(overleap(nodeA->bound, nodeB->bound)){
             if (nodeA->circlesAmmount == 1 && nodeB->circlesAmmount == 1){ // листья
                 closestSphere(nodeA->circles.at(0).aSphere, nodeB->circles.at(0).aSphere);
-                // changeVelocity(nodeA->getCircles().at(0), nodeB->getCircles().at(0));
-                // cout << "The circles "<< nodeA->getCircles().at(0)->getId() << " and " << nodeB->getCircles().at(0)->getId() << " collided!" << endl;
             }
             else if (nodeA->circlesAmmount > 1 && nodeB->circlesAmmount > 1){ //рекурсия ветвей
                 overleapCheck(nodeA->child1, nodeB->child2);
@@ -245,7 +232,9 @@ struct BVH
 
     void BVH_info(Node* A){
         if(A->circlesAmmount == 1){
-            // std::cout << "ammount of circles: " << A->circlesAmmount << std::endl;
+            std::cout << "Last node" << std::endl;
+            std::cout << "ammount of circles: " << A->circlesAmmount << std::endl;
+            std::cout << "Sphere adress " << A->circles.at(0).aSphere << std::endl;
             std::cout << "X max = " << A->bound->borderXMax << std::endl;
             std::cout << "X min = " << A->bound->borderXMin << std::endl;
             std::cout << "Y max = " << A->bound->borderYMax << std::endl;
@@ -280,7 +269,7 @@ struct BVH
     sphere* getSphere(float x, float y, Node* A)
     {
         sphere* tmpSphere = nullptr;
-        if (A->circlesAmmount == 1 && inTheBoundaries(x, y, A->bound) && A->circles.at(0).aSphere->overleaped == false) 
+        if (A->circlesAmmount == 1 && inTheBoundaries(x, y, A->bound)) 
         {
             tmpSphere = A->circles.at(0).aSphere;
             return tmpSphere;

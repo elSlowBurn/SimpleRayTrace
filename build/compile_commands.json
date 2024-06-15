@@ -1,0 +1,8 @@
+[
+{
+  "directory": "C:/C++/Donut/build",
+  "command": "C:\\MinGW\\bin\\g++.exe   -g -o CMakeFiles\\Donut.dir\\main.cpp.obj -c C:\\C++\\Donut\\main.cpp",
+  "file": "C:/C++/Donut/main.cpp",
+  "output": "CMakeFiles/Donut.dir/main.cpp.obj"
+}
+]
